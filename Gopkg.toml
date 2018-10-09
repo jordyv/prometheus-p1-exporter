@@ -1,0 +1,8 @@
+
+[[constraint]]
+  branch = "master"
+  name = "github.com/jacobsa/go-serial"
+
+[prune]
+  go-tests = true
+  unused-packages = true
