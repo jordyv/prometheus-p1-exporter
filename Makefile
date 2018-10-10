@@ -2,7 +2,11 @@
 
 BINARY_NAME=prometheus-p1-exporter
 
-all: build-binary build-binary-arm
+all: install build-binary build-binary-arm
+
+install:
+	curl https://raw.githubusercontent.com/golang/dep/master/install.sh | sh
+	dep ensure
 
 build-binary:
 	go build -o dist/${BINARY_NAME} main.go
