@@ -9,6 +9,3 @@ build-binary:
 
 build-binary-arm:
 	GOOS=linux GOARCH=arm go build -o dist/${BINARY_NAME}_arm main.go
-
-build-deb-arm: build-binary-arm
-	dpkg-buildpackage -b --target-arch=arm
