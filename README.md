@@ -6,11 +6,7 @@ Prometheus exporter for smart meter statistics fetched with a P1 cable.
 
 ### Debian/Ubuntu ###
 
-Download one of the .deb package files from the [releases](https://github.com/jordyv/prometheus-p1-exporter/releases) page to your Raspberry Pi or machine and install it with:
-
-```
-$ dpkg -i prometheus-p1-exporter-v0.1-arm.deb
-```
+TODO
 
 ### From source ###
 
