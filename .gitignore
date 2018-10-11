@@ -1,3 +1,4 @@
 /.vscode
 /dist
 /vendor
+/cover.out

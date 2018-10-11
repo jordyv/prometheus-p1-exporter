@@ -15,4 +15,4 @@ build-binary-arm:
 	GOOS=linux GOARCH=arm go build -o dist/${BINARY_NAME}_arm main.go
 
 test:
-	go test -cover github.com/jordyv/prometheus-p1-exporter/conn github.com/jordyv/prometheus-p1-exporter/parser
+	go test -cover -coverprofile=cover.out github.com/jordyv/prometheus-p1-exporter/conn github.com/jordyv/prometheus-p1-exporter/parser
