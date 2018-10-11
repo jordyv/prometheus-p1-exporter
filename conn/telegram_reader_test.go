@@ -5,11 +5,11 @@ import (
 )
 
 func TestReadTelegram(t *testing.T) {
-	lines, err := ReadTelegram(&Esmr5TelegramReaderOptions, &MockSource{})
+	items, err := ReadTelegram(&ESMR5TelegramReaderOptions, &MockSource{})
 	if err != nil {
 		t.Fatal(err.Error())
 	}
-	if len(lines) != 27 {
-		t.Fatal("expect 27 lines in telegram body")
+	if len(items) != 23 {
+		t.Fatal("expect 23 items in telegram body map")
 	}
 }

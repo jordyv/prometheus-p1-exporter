@@ -9,3 +9,6 @@ build-binary:
 
 build-binary-arm:
 	GOOS=linux GOARCH=arm go build -o dist/${BINARY_NAME}_arm main.go
+
+test:
+	go test -cover prometheus-p1-exporter/conn prometheus-p1-exporter/parser

@@ -24,17 +24,17 @@ type Telegram struct {
 }
 
 type TelegramFormat struct {
-	LineTimestamp                   int
-	LineElectricityUsageLow         int
-	LineElectricityUsageHigh        int
-	LineElectricityReturnedLow      int
-	LineElectricityReturnedHigh     int
-	LineActiveTariff                int
-	LinePowerFailuresShort          int
-	LinePowerFailuresLong           int
-	LineCurrentElectricityUsageLow  int
-	LineCurrentElectricityUsageHigh int
-	LineGasUsage                    int
+	KeyTimestamp                   string
+	KeyElectricityUsageLow         string
+	KeyElectricityUsageHigh        string
+	KeyElectricityReturnedLow      string
+	KeyElectricityReturnedHigh     string
+	KeyActiveTariff                string
+	KeyCurrentElectricityUsageLow  string
+	KeyCurrentElectricityUsageHigh string
+	KeyPowerFailuresShort          string
+	KeyPowerFailuresLong           string
+	KeyGasUsage                    string
 }
 
 func parseTelegramValue(s string) string {
@@ -74,22 +74,22 @@ func parseGasString(s string) float64 {
 	return res
 }
 
-func ParseTelegram(format *TelegramFormat, telegramLines []string) (Telegram, error) {
+func ParseTelegram(format *TelegramFormat, telegramLines map[string]string) (Telegram, error) {
 	logrus.Debugln("Line to parse", telegramLines)
 
 	if len(telegramLines) > 0 {
 		return Telegram{
-			Timestamp:                   parseTimestampString(telegramLines[format.LineTimestamp]),
-			ElectricityUsageHigh:        parseElectricityString(telegramLines[format.LineElectricityUsageHigh]),
-			ElectricityUsageLow:         parseElectricityString(telegramLines[format.LineElectricityUsageLow]),
-			ElectricityReturnedHigh:     parseElectricityString(telegramLines[format.LineElectricityReturnedHigh]),
-			ElectricityReturnedLow:      parseElectricityString(telegramLines[format.LineElectricityReturnedLow]),
-			ActiveTariff:                parseInt(telegramLines[format.LineActiveTariff]),
-			PowerFailuresLong:           parseInt(telegramLines[format.LinePowerFailuresLong]),
-			PowerFailuresShort:          parseInt(telegramLines[format.LinePowerFailuresShort]),
-			CurrentElectricityUsageHigh: parseElectricityStringWithSuffix(telegramLines[format.LineCurrentElectricityUsageHigh], "*kW"),
-			CurrentElectricityUsageLow:  parseElectricityStringWithSuffix(telegramLines[format.LineCurrentElectricityUsageLow], "*kW"),
-			GasUsage:                    parseGasString(telegramLines[format.LineGasUsage]),
+			Timestamp:                   parseTimestampString(telegramLines[format.KeyTimestamp]),
+			ElectricityUsageHigh:        parseElectricityString(telegramLines[format.KeyElectricityUsageHigh]),
+			ElectricityUsageLow:         parseElectricityString(telegramLines[format.KeyElectricityUsageLow]),
+			ElectricityReturnedHigh:     parseElectricityString(telegramLines[format.KeyElectricityReturnedHigh]),
+			ElectricityReturnedLow:      parseElectricityString(telegramLines[format.KeyElectricityReturnedLow]),
+			ActiveTariff:                parseInt(telegramLines[format.KeyActiveTariff]),
+			PowerFailuresLong:           parseInt(telegramLines[format.KeyPowerFailuresLong]),
+			PowerFailuresShort:          parseInt(telegramLines[format.KeyPowerFailuresShort]),
+			CurrentElectricityUsageHigh: parseElectricityStringWithSuffix(telegramLines[format.KeyCurrentElectricityUsageHigh], "*kW"),
+			CurrentElectricityUsageLow:  parseElectricityStringWithSuffix(telegramLines[format.KeyCurrentElectricityUsageLow], "*kW"),
+			GasUsage:                    parseGasString(telegramLines[format.KeyGasUsage]),
 		}, nil
 	}
 	return Telegram{}, errors.New("provided telegram is empty")

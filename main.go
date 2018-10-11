@@ -95,12 +95,12 @@ func main() {
 
 	go func() {
 		for {
-			lines, err := conn.ReadTelegram(&conn.Esmr5TelegramReaderOptions, source)
+			lines, err := conn.ReadTelegram(&conn.ESMR5TelegramReaderOptions, source)
 			if err != nil {
 				logrus.Errorln("Error while reading telegram from source", err)
 				continue
 			}
-			telegram, err := parser.ParseTelegram(&parser.Esmr5TelegramFormat, lines)
+			telegram, err := parser.ParseTelegram(&parser.XS210ESMR5TelegramFormat, lines)
 			if err != nil {
 				logrus.Errorln("Error while parsing telegram", err)
 				continue
@@ -116,7 +116,7 @@ func main() {
 			powerFailuresShortMetric.Set(float64(telegram.PowerFailuresShort))
 			gasUsageMetric.Set(telegram.GasUsage)
 
-			logrus.Debugln(telegram)
+			logrus.Debugf("%+v\n", telegram)
 
 			time.Sleep(readInterval)
 		}
