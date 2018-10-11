@@ -4,9 +4,9 @@ Prometheus exporter for smart meter statistics fetched with a P1 cable.
 
 ## Todos ##
 
-[] Add build target for a .deb package to the Makefile
-[] Add more unit tests
-[] Fix TravisCI integration
+- Add build target for a .deb package to the Makefile
+- Add more unit tests
+- Fix TravisCI integration
 
 ## Installation ##
 
