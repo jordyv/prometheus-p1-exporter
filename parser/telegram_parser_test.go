@@ -1,8 +1,9 @@
 package parser
 
 import (
-	"prometheus-p1-exporter/conn"
 	"testing"
+
+	"github.com/jordyv/prometheus-p1-exporter/conn"
 )
 
 func TestParseESMR5Format(t *testing.T) {

@@ -3,9 +3,10 @@ package main
 import (
 	"flag"
 	"net/http"
-	"prometheus-p1-exporter/conn"
-	"prometheus-p1-exporter/parser"
 	"time"
+
+	"github.com/jordyv/prometheus-p1-exporter/conn"
+	"github.com/jordyv/prometheus-p1-exporter/parser"
 
 	"github.com/Sirupsen/logrus"
 	"github.com/prometheus/client_golang/prometheus"
