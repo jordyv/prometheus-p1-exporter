@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/jordyv/prometheus-p1-exporter.svg?branch=master)](https://travis-ci.org/jordyv/prometheus-p1-exporter)
+
 # Prometheus P1 exporter #
 
 Prometheus exporter for smart meter statistics fetched with a P1 cable.
