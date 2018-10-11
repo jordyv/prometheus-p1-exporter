@@ -2,6 +2,12 @@
 
 Prometheus exporter for smart meter statistics fetched with a P1 cable.
 
+## Todos ##
+
+[] Add build target for a .deb package to the Makefile
+[] Add more unit tests
+[] Fix TravisCI integration
+
 ## Installation ##
 
 ### Debian/Ubuntu ###
@@ -74,3 +80,8 @@ usage_electricity_low 1179.186
 # TYPE usage_gas gauge
 usage_gas 1019.003
 ```
+
+## Development ##
+
+Currently only the ESMR 5.0 format is supported and the parser is default configured to parse the telegram message with the keys the Sagemcom XS210 is using.
+If you have to support a different ESMR 5.0 message, feel free to create your own implementation of the TelegramFormat struct. To support a different format then ESMR 5.0 you can implement your own implementation of the TelegramReaderOptions struct.
