@@ -35,13 +35,13 @@ var (
 		Name: "returned_electricity_low",
 		Help: "Electricity returned low tariff",
 	})
-	electricityCurrentUsageHighMetric = prometheus.NewGauge(prometheus.GaugeOpts{
-		Name: "current_usage_electricity_high",
-		Help: "Electricity currently used high tariff",
+	actualElectricityDeliveredMetric = prometheus.NewGauge(prometheus.GaugeOpts{
+		Name: "actual_electricity_delivered",
+		Help: "Actual electricity power delivered to client",
 	})
-	electricitCurrentUsageLowMetric = prometheus.NewGauge(prometheus.GaugeOpts{
-		Name: "current_usage_electricity_low",
-		Help: "Electricity currently used low tariff",
+	actualElectricityRetreivedMetric = prometheus.NewGauge(prometheus.GaugeOpts{
+		Name: "actual_electricity_retreived",
+		Help: "Actual electricity power retreived from client",
 	})
 	activeTarrifMetric = prometheus.NewGauge(prometheus.GaugeOpts{
 		Name: "active_tariff",
@@ -66,8 +66,8 @@ func init() {
 	registry.MustRegister(electricityUsageLowMetric)
 	registry.MustRegister(electricityReturnedHighMetric)
 	registry.MustRegister(electricityReturnedLowMetric)
-	registry.MustRegister(electricitCurrentUsageLowMetric)
-	registry.MustRegister(electricityCurrentUsageHighMetric)
+	registry.MustRegister(actualElectricityDeliveredMetric)
+	registry.MustRegister(actualElectricityRetreivedMetric)
 	registry.MustRegister(activeTarrifMetric)
 	registry.MustRegister(powerFailuresLongMetric)
 	registry.MustRegister(powerFailuresShortMetric)
@@ -109,8 +109,8 @@ func main() {
 			electricityUsageLowMetric.Set(telegram.ElectricityUsageLow)
 			electricityReturnedHighMetric.Set(telegram.ElectricityReturnedHigh)
 			electricityReturnedLowMetric.Set(telegram.ElectricityReturnedLow)
-			electricityCurrentUsageHighMetric.Set(telegram.CurrentElectricityUsageHigh)
-			electricitCurrentUsageLowMetric.Set(telegram.CurrentElectricityUsageLow)
+			actualElectricityDeliveredMetric.Set(telegram.ActualElectricityDelivered)
+			actualElectricityRetreivedMetric.Set(telegram.ActualElectricityRetreived)
 			activeTarrifMetric.Set(float64(telegram.ActiveTariff))
 			powerFailuresLongMetric.Set(float64(telegram.PowerFailuresLong))
 			powerFailuresShortMetric.Set(float64(telegram.PowerFailuresShort))
