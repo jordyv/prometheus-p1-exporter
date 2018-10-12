@@ -5,8 +5,7 @@ BINARY_NAME=prometheus-p1-exporter
 install: install-deps build-binary install-binary
 
 install-deps:
-	curl https://raw.githubusercontent.com/golang/dep/master/install.sh | sh
-	dep ensure
+	go get
 
 build-binary:
 	go build -o dist/${BINARY_NAME} main.go
