@@ -6,17 +6,8 @@
 
 Prometheus exporter for smart meter statistics fetched with a P1 cable.
 
-## Todos ##
-
-- Add build target for a .deb package to the Makefile
-- Add more unit tests
-- Fix TravisCI integration
 
 ## Installation ##
-
-### Debian/Ubuntu ###
-
-TODO
 
 ### From source ###
 
@@ -31,7 +22,7 @@ Make:
 ```
 $ git clone https://github.com/jordyv/prometheus-p1-exporter.git
 $ cd prometheus-p1-exporter
-$ make
+$ sudo make install
 ```
 
 ## Usage ##
