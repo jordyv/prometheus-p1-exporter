@@ -4,7 +4,7 @@ BINARY_NAME=prometheus-p1-exporter
 
 build: install-deps build-binary
 
-install: install-deps build-binary install-binary
+install: install-binary
 
 install-deps:
 	go get

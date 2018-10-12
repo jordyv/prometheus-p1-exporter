@@ -22,6 +22,7 @@ Make:
 ```
 $ git clone https://github.com/jordyv/prometheus-p1-exporter.git
 $ cd prometheus-p1-exporter
+$ make
 $ sudo make install
 ```
 
