@@ -7,7 +7,10 @@ install: make install-deps
 before_script:
   - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
   - chmod +x ./cc-test-reporter
+  - go get github.com/axw/gocov/gocov
   - ./cc-test-reporter before-build
-script: make test
+script: 
+  - go test -cover -coverprofile=cover.out github.com/jordyv/prometheus-p1-exporter/conn github.com/jordyv/prometheus-p1-exporter/parser
 after_script:
-  - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
+  - ./cc-test-reporter format-coverage cover.out --input-type gocov
+  - ./cc-test-reporter upload-coverage
