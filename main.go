@@ -3,6 +3,7 @@ package main
 import (
 	"flag"
 	"net/http"
+	"os"
 	"time"
 
 	"github.com/jordyv/prometheus-p1-exporter/conn"
@@ -95,17 +96,28 @@ func main() {
 	}
 
 	go func() {
+		errorCount := 0
 		for {
+			if errorCount > 10 {
+				logrus.Errorln("Quitting because there were too many errors")
+				os.Exit(1)
+			}
+
 			lines, err := conn.ReadTelegram(&conn.ESMR5TelegramReaderOptions, source)
 			if err != nil {
 				logrus.Errorln("Error while reading telegram from source", err)
+				errorCount++
+				time.Sleep(readInterval)
 				continue
 			}
 			telegram, err := parser.ParseTelegram(&parser.XS210ESMR5TelegramFormat, lines)
 			if err != nil {
 				logrus.Errorln("Error while parsing telegram", err)
+				errorCount++
+				time.Sleep(readInterval)
 				continue
 			}
+			errorCount = 0
 			electricityUsageHighMetric.Set(telegram.ElectricityUsageHigh)
 			electricityUsageLowMetric.Set(telegram.ElectricityUsageLow)
 			electricityReturnedHighMetric.Set(telegram.ElectricityReturnedHigh)
