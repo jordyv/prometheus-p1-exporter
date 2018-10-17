@@ -13,3 +13,10 @@ script:
 after_script:
   - ./cc-test-reporter format-coverage cover.out --input-type gocov
   - ./cc-test-reporter upload-coverage
+
+deploy:
+  provider: releases
+  api_key: ""
+  skip_cleanup: true
+  on:
+    tags: true
