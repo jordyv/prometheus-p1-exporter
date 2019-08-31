@@ -6,8 +6,8 @@ import (
 	"os"
 	"time"
 
-	"github.com/jordyv/prometheus-p1-exporter/conn"
-	"github.com/jordyv/prometheus-p1-exporter/parser"
+	"github.com/cdnhaese/prometheus-p1-exporter/conn"
+	"github.com/cdnhaese/prometheus-p1-exporter/parser"
 
 	"github.com/Sirupsen/logrus"
 	"github.com/prometheus/client_golang/prometheus"
