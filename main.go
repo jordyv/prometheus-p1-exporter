@@ -78,7 +78,7 @@ func init() {
 
 func main() {
 	flag.StringVar(&listenAddr, "listen", "127.0.0.1:8888", "Listen address for HTTP metrics")
-	flag.DurationVar(&readInterval, "interval", 10*time.Second, "Interval between metric reads")
+	flag.DurationVar(&readInterval, "interval", 1*time.Second, "Interval between metric reads")
 	flag.BoolVar(&useMock, "mock", false, "Use dummy source instead of ttyUSB0 socket")
 	flag.BoolVar(&verbose, "verbose", false, "Verbose output logging")
 	flag.Parse()
