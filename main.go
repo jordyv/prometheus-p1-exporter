@@ -18,47 +18,48 @@ var readInterval time.Duration
 var listenAddr string
 var useMock bool
 var verbose bool
+var metricNamePrefix = "p1_"
 
 var (
 	registry                   = prometheus.NewRegistry()
 	electricityUsageHighMetric = prometheus.NewGauge(prometheus.GaugeOpts{
-		Name: "usage_electricity_high",
+		Name: metricNamePrefix + "usage_electricity_high",
 		Help: "Electricity usage high tariff",
 	})
 	electricityUsageLowMetric = prometheus.NewGauge(prometheus.GaugeOpts{
-		Name: "usage_electricity_low",
+		Name: metricNamePrefix + "usage_electricity_low",
 		Help: "Electricity usage low tariff",
 	})
 	electricityReturnedHighMetric = prometheus.NewGauge(prometheus.GaugeOpts{
-		Name: "returned_electricity_high",
+		Name: metricNamePrefix + "returned_electricity_high",
 		Help: "Electricity returned high tariff",
 	})
 	electricityReturnedLowMetric = prometheus.NewGauge(prometheus.GaugeOpts{
-		Name: "returned_electricity_low",
+		Name: metricNamePrefix + "returned_electricity_low",
 		Help: "Electricity returned low tariff",
 	})
 	actualElectricityDeliveredMetric = prometheus.NewGauge(prometheus.GaugeOpts{
-		Name: "actual_electricity_delivered",
+		Name: metricNamePrefix + "actual_electricity_delivered",
 		Help: "Actual electricity power delivered to client",
 	})
 	actualElectricityRetreivedMetric = prometheus.NewGauge(prometheus.GaugeOpts{
-		Name: "actual_electricity_retreived",
+		Name: metricNamePrefix + "actual_electricity_retreived",
 		Help: "Actual electricity power retreived from client",
 	})
 	activeTarrifMetric = prometheus.NewGauge(prometheus.GaugeOpts{
-		Name: "active_tariff",
+		Name: metricNamePrefix + "active_tariff",
 		Help: "Active tariff",
 	})
 	powerFailuresLongMetric = prometheus.NewGauge(prometheus.GaugeOpts{
-		Name: "power_failures_long",
+		Name: metricNamePrefix + "power_failures_long",
 		Help: "Power failures long",
 	})
 	powerFailuresShortMetric = prometheus.NewGauge(prometheus.GaugeOpts{
-		Name: "power_failures_short",
+		Name: metricNamePrefix + "power_failures_short",
 		Help: "Power failures short",
 	})
 	gasUsageMetric = prometheus.NewGauge(prometheus.GaugeOpts{
-		Name: "usage_gas",
+		Name: metricNamePrefix + "usage_gas",
 		Help: "Gas usage",
 	})
 )
