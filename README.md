@@ -45,36 +45,36 @@ By default the exporter will collect metrics from `/dev/ttyUSB0` every 10 second
 Example metrics page:
 
 ```
-# HELP active_tariff Active tariff
-# TYPE active_tariff gauge
-active_tariff 2
-# HELP current_usage_electricity_high Electricity currently used high tariff
-# TYPE current_usage_electricity_high gauge
-current_usage_electricity_high 0
-# HELP current_usage_electricity_low Electricity currently used low tariff
-# TYPE current_usage_electricity_low gauge
-current_usage_electricity_low 0.2
-# HELP power_failures_long Power failures long
-# TYPE power_failures_long gauge
-power_failures_long 2
-# HELP power_failures_short Power failures short
-# TYPE power_failures_short gauge
-power_failures_short 57
-# HELP returned_electricity_high Electricity returned high tariff
-# TYPE returned_electricity_high gauge
-returned_electricity_high 0
-# HELP returned_electricity_low Electricity returned low tariff
-# TYPE returned_electricity_low gauge
-returned_electricity_low 0.016
-# HELP usage_electricity_high Electricity usage high tariff
-# TYPE usage_electricity_high gauge
-usage_electricity_high 1225.59
-# HELP usage_electricity_low Electricity usage low tariff
-# TYPE usage_electricity_low gauge
-usage_electricity_low 1179.186
-# HELP usage_gas Gas usage
-# TYPE usage_gas gauge
-usage_gas 1019.003
+# HELP p1_active_tariff Active tariff
+# TYPE p1_active_tariff gauge
+p1_active_tariff 2
+# HELP p1_current_usage_electricity_high Electricity currently used high tariff
+# TYPE p1_current_usage_electricity_high gauge
+p1_current_usage_electricity_high 0
+# HELP p1_current_usage_electricity_low Electricity currently used low tariff
+# TYPE p1_current_usage_electricity_low gauge
+p1_current_usage_electricity_low 0.2
+# HELP p1_power_failures_long Power failures long
+# TYPE p1_power_failures_long gauge
+p1_power_failures_long 2
+# HELP p1_power_failures_short Power failures short
+# TYPE p1_power_failures_short gauge
+p1_power_failures_short 57
+# HELP p1_returned_electricity_high Electricity returned high tariff
+# TYPE p1_returned_electricity_high gauge
+p1_returned_electricity_high 0
+# HELP p1_returned_electricity_low Electricity returned low tariff
+# TYPE p1_returned_electricity_low gauge
+p1_returned_electricity_low 0.016
+# HELP p1_usage_electricity_high Electricity usage high tariff
+# TYPE p1_usage_electricity_high gauge
+p1_usage_electricity_high 1225.59
+# HELP p1_usage_electricity_low Electricity usage low tariff
+# TYPE p1_usage_electricity_low gauge
+p1_usage_electricity_low 1179.186
+# HELP p1_usage_gas Gas usage
+# TYPE p1_usage_gas gauge
+p1_usage_gas 1019.003
 ```
 
 ## Development ##
