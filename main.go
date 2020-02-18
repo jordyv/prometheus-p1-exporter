@@ -118,16 +118,26 @@ func main() {
 				continue
 			}
 			errorCount = 0
-			electricityUsageHighMetric.Set(telegram.ElectricityUsageHigh)
-			electricityUsageLowMetric.Set(telegram.ElectricityUsageLow)
-			electricityReturnedHighMetric.Set(telegram.ElectricityReturnedHigh)
-			electricityReturnedLowMetric.Set(telegram.ElectricityReturnedLow)
+			if (telegram.ElectricityUsageHigh != 0) {
+				electricityUsageHighMetric.Set(telegram.ElectricityUsageHigh)
+			}
+			if (telegram.ElectricityUsageLow != 0) {
+				electricityUsageLowMetric.Set(telegram.ElectricityUsageLow)
+			}
+			if (telegram.ElectricityReturnedHigh != 0) {
+				electricityReturnedHighMetric.Set(telegram.ElectricityReturnedHigh)
+			}
+			if (telegram.ElectricityReturnedLow != 0) {
+				electricityReturnedLowMetric.Set(telegram.ElectricityReturnedLow)
+			}
 			actualElectricityDeliveredMetric.Set(telegram.ActualElectricityDelivered)
 			actualElectricityRetreivedMetric.Set(telegram.ActualElectricityRetreived)
 			activeTarrifMetric.Set(float64(telegram.ActiveTariff))
 			powerFailuresLongMetric.Set(float64(telegram.PowerFailuresLong))
 			powerFailuresShortMetric.Set(float64(telegram.PowerFailuresShort))
-			gasUsageMetric.Set(telegram.GasUsage)
+			if (telegram.GasUsage != 0) {
+				gasUsageMetric.Set(telegram.GasUsage)
+			}
 
 			logrus.Debugf("%+v\n", telegram)
 
