@@ -9,8 +9,8 @@ Prometheus exporter for smart meter statistics fetched with a P1 cable.
 
 With Go get:
 
-```
-$ go install github.com/loafoe/prometheus-p1-exporter
+```shell
+go install github.com/loafoe/prometheus-p1-exporter@latest
 ```
 
 ## Usage
