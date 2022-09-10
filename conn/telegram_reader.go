@@ -18,7 +18,7 @@ type Source interface {
 	ReadFromSource(telegramOptions *TelegramReaderOptions) (io.ReadWriteCloser, error)
 }
 
-func convertTelegramReaderToLines(telegramOptions *TelegramReaderOptions, reader io.ReadWriteCloser) ([]string, error) {
+func convertTelegramReaderToLines(_ *TelegramReaderOptions, reader io.ReadWriteCloser) ([]string, error) {
 	buffer := bufio.NewReader(reader)
 	telegram, err := buffer.ReadBytes('!')
 	if err != nil {
@@ -29,7 +29,7 @@ func convertTelegramReaderToLines(telegramOptions *TelegramReaderOptions, reader
 }
 
 func splitTelegramLine(line string) (string, string, error) {
-	re := regexp.MustCompile("^([0-9\\-\\:\\.]*)(\\(.*\\))*(\\(.*\\))$")
+	re := regexp.MustCompile(`^([0-9\-:.]*)(\(.*\))*(\(.*\))$`)
 	lineParts := re.FindStringSubmatch(line)
 	if len(lineParts) < 4 {
 		return "", "", errors.New("could not split telegram line correctly")
@@ -56,7 +56,9 @@ func ReadTelegram(telegramOptions *TelegramReaderOptions, source Source) (map[st
 	if err != nil {
 		return nil, err
 	}
-	defer reader.Close()
+	defer func() {
+		_ = reader.Close()
+	}()
 	lines, err := convertTelegramReaderToLines(telegramOptions, reader)
 	if err != nil {
 		return nil, err

@@ -38,7 +38,7 @@ type TelegramFormat struct {
 }
 
 func parseTelegramValue(s string) string {
-	re := regexp.MustCompile("^\\d+\\-\\d+\\:\\d+\\.\\d+\\.\\d+(\\(.*\\))?\\((.*)\\)$")
+	re := regexp.MustCompile(`^\d+-\d+:\d+\.\d+\.\d+(\(.*\))?\((.*)\)$`)
 	parsed := re.FindStringSubmatch(s)
 	if len(parsed) > 0 {
 		return parsed[len(parsed)-1]
