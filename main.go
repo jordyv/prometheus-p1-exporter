@@ -9,9 +9,9 @@ import (
 	"github.com/loafoe/prometheus-p1-exporter/conn"
 	"github.com/loafoe/prometheus-p1-exporter/parser"
 
-	"github.com/sirupsen/logrus"
 	"github.com/prometheus/client_golang/prometheus"
 	"github.com/prometheus/client_golang/prometheus/promhttp"
+	"github.com/sirupsen/logrus"
 )
 
 var readInterval time.Duration
@@ -123,8 +123,8 @@ func main() {
 			electricityUsageLowMetric.Set(telegram.ElectricityUsageLow)
 			electricityReturnedHighMetric.Set(telegram.ElectricityReturnedHigh)
 			electricityReturnedLowMetric.Set(telegram.ElectricityReturnedLow)
-			actualElectricityDeliveredMetric.Set(telegram.ActualElectricityDelivered)
-			actualElectricityRetreivedMetric.Set(telegram.ActualElectricityRetreived)
+			actualElectricityDeliveredMetric.Set(telegram.ActiveElectricityDraw)
+			actualElectricityRetreivedMetric.Set(telegram.ActiveElectricityReturn)
 			activeTarrifMetric.Set(float64(telegram.ActiveTariff))
 			powerFailuresLongMetric.Set(float64(telegram.PowerFailuresLong))
 			powerFailuresShortMetric.Set(float64(telegram.PowerFailuresShort))

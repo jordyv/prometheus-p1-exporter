@@ -10,31 +10,31 @@ import (
 )
 
 type Telegram struct {
-	Timestamp                  int64
-	ElectricityUsageLow        float64
-	ElectricityUsageHigh       float64
-	ElectricityReturnedLow     float64
-	ElectricityReturnedHigh    float64
-	ActiveTariff               int64
-	PowerFailuresShort         int64
-	PowerFailuresLong          int64
-	ActualElectricityDelivered float64
-	ActualElectricityRetreived float64
-	GasUsage                   float64
+	Timestamp               int64
+	ElectricityUsageLow     float64
+	ElectricityUsageHigh    float64
+	ElectricityReturnedLow  float64
+	ElectricityReturnedHigh float64
+	ActiveTariff            int64
+	PowerFailuresShort      int64
+	PowerFailuresLong       int64
+	ActiveElectricityDraw   float64
+	ActiveElectricityReturn float64
+	GasUsage                float64
 }
 
 type TelegramFormat struct {
-	KeyTimestamp                  string
-	KeyElectricityUsageLow        string
-	KeyElectricityUsageHigh       string
-	KeyElectricityReturnedLow     string
-	KeyElectricityReturnedHigh    string
-	KeyActiveTariff               string
-	KeyActualElectricityDelivered string
-	KeyActualElectricityRetreived string
-	KeyPowerFailuresShort         string
-	KeyPowerFailuresLong          string
-	KeyGasUsage                   string
+	KeyTimestamp               string
+	KeyElectricityUsageLow     string
+	KeyElectricityUsageHigh    string
+	KeyElectricityReturnedLow  string
+	KeyElectricityReturnedHigh string
+	KeyActiveTariff            string
+	KeyActiveElectricityDraw   string
+	KeyActiveElectricityReturn string
+	KeyPowerFailuresShort      string
+	KeyPowerFailuresLong       string
+	KeyGasUsage                string
 }
 
 func parseTelegramValue(s string) string {
@@ -79,17 +79,17 @@ func ParseTelegram(format *TelegramFormat, telegramLines map[string]string) (Tel
 
 	if len(telegramLines) > 0 {
 		return Telegram{
-			Timestamp:                  parseTimestampString(telegramLines[format.KeyTimestamp]),
-			ElectricityUsageHigh:       parseElectricityString(telegramLines[format.KeyElectricityUsageHigh]),
-			ElectricityUsageLow:        parseElectricityString(telegramLines[format.KeyElectricityUsageLow]),
-			ElectricityReturnedHigh:    parseElectricityString(telegramLines[format.KeyElectricityReturnedHigh]),
-			ElectricityReturnedLow:     parseElectricityString(telegramLines[format.KeyElectricityReturnedLow]),
-			ActiveTariff:               parseInt(telegramLines[format.KeyActiveTariff]),
-			PowerFailuresLong:          parseInt(telegramLines[format.KeyPowerFailuresLong]),
-			PowerFailuresShort:         parseInt(telegramLines[format.KeyPowerFailuresShort]),
-			ActualElectricityDelivered: parseElectricityStringWithSuffix(telegramLines[format.KeyActualElectricityDelivered], "*kW"),
-			ActualElectricityRetreived: parseElectricityStringWithSuffix(telegramLines[format.KeyActualElectricityRetreived], "*kW"),
-			GasUsage:                   parseGasString(telegramLines[format.KeyGasUsage]),
+			Timestamp:               parseTimestampString(telegramLines[format.KeyTimestamp]),
+			ElectricityUsageHigh:    parseElectricityString(telegramLines[format.KeyElectricityUsageHigh]),
+			ElectricityUsageLow:     parseElectricityString(telegramLines[format.KeyElectricityUsageLow]),
+			ElectricityReturnedHigh: parseElectricityString(telegramLines[format.KeyElectricityReturnedHigh]),
+			ElectricityReturnedLow:  parseElectricityString(telegramLines[format.KeyElectricityReturnedLow]),
+			ActiveTariff:            parseInt(telegramLines[format.KeyActiveTariff]),
+			PowerFailuresLong:       parseInt(telegramLines[format.KeyPowerFailuresLong]),
+			PowerFailuresShort:      parseInt(telegramLines[format.KeyPowerFailuresShort]),
+			ActiveElectricityDraw:   parseElectricityStringWithSuffix(telegramLines[format.KeyActiveElectricityDraw], "*kW"),
+			ActiveElectricityReturn: parseElectricityStringWithSuffix(telegramLines[format.KeyActiveElectricityReturn], "*kW"),
+			GasUsage:                parseGasString(telegramLines[format.KeyGasUsage]),
 		}, nil
 	}
 	return Telegram{}, errors.New("provided telegram is empty")

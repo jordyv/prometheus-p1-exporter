@@ -27,11 +27,11 @@ func TestParseESMR5Format(t *testing.T) {
 	if telegram.ElectricityReturnedLow != 0.016 {
 		t.Error(telegram.ElectricityReturnedLow)
 	}
-	if telegram.ActualElectricityRetreived != 0.0 {
-		t.Error(telegram.ActualElectricityRetreived)
+	if telegram.ActiveElectricityReturn != 0.0 {
+		t.Error(telegram.ActiveElectricityReturn)
 	}
-	if telegram.ActualElectricityDelivered != 0.2 {
-		t.Error(telegram.ActualElectricityDelivered)
+	if telegram.ActiveElectricityDraw != 0.2 {
+		t.Error(telegram.ActiveElectricityDraw)
 	}
 	if telegram.PowerFailuresLong != 2 {
 		t.Error(telegram.PowerFailuresLong)
