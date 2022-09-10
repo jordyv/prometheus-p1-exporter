@@ -4,14 +4,13 @@ import (
 	"flag"
 	"net/http"
 	"os"
+	"strconv"
 	"time"
-
-	"github.com/loafoe/prometheus-p1-exporter/conn"
-	"github.com/loafoe/prometheus-p1-exporter/parser"
 
 	"github.com/prometheus/client_golang/prometheus"
 	"github.com/prometheus/client_golang/prometheus/promhttp"
 	"github.com/sirupsen/logrus"
+	"github.com/skoef/gop1"
 )
 
 var readInterval time.Duration
@@ -77,6 +76,11 @@ func init() {
 	registry.MustRegister(gasUsageMetric)
 }
 
+func floatValue(input string) (fval float64) {
+	fval, _ = strconv.ParseFloat(input, 64)
+	return
+}
+
 func main() {
 	flag.StringVar(&listenAddr, "listen", "127.0.0.1:8888", "Listen address for HTTP metrics")
 	flag.DurationVar(&readInterval, "interval", 10*time.Second, "Interval between metric reads")
@@ -84,12 +88,16 @@ func main() {
 	flag.BoolVar(&verbose, "verbose", false, "Verbose output logging")
 	flag.Parse()
 
-	var source conn.Source
-	if useMock {
-		source = &conn.MockSource{}
-	} else {
-		source = &conn.SerialSource{}
+	p1, err := gop1.New(gop1.P1Config{
+		USBDevice: "/dev/ttyUSB0",
+	})
+	if err != nil {
+		logrus.Errorln("Quitting because of error opening p1", err)
+		os.Exit(1)
 	}
+
+	// Start
+	p1.Start()
 
 	logrus.SetFormatter(&logrus.TextFormatter{FullTimestamp: true})
 	if verbose {
@@ -97,42 +105,16 @@ func main() {
 	}
 
 	go func() {
-		errorCount := 0
-		for {
-			if errorCount > 10 {
-				logrus.Errorln("Quitting because there were too many errors")
-				os.Exit(1)
-			}
+		for tgram := range p1.Incoming {
+			for _, obj := range tgram.Objects {
+				switch obj.Type {
 
-			lines, err := conn.ReadTelegram(&conn.ESMR5TelegramReaderOptions, source)
-			if err != nil {
-				logrus.Errorln("Error while reading telegram from source", err)
-				errorCount++
-				time.Sleep(readInterval)
-				continue
+				case gop1.OBISTypeElectricityDelivered:
+					actualElectricityDeliveredMetric.Set(floatValue(obj.Values[0].Value))
+				case gop1.OBISTypeElectricityGenerated:
+					actualElectricityRetreivedMetric.Set(floatValue(obj.Values[0].Value))
+				}
 			}
-			telegram, err := parser.ParseTelegram(&parser.XS210ESMR5TelegramFormat, lines)
-			if err != nil {
-				logrus.Errorln("Error while parsing telegram", err)
-				errorCount++
-				time.Sleep(readInterval)
-				continue
-			}
-			errorCount = 0
-			electricityUsageHighMetric.Set(telegram.ElectricityUsageHigh)
-			electricityUsageLowMetric.Set(telegram.ElectricityUsageLow)
-			electricityReturnedHighMetric.Set(telegram.ElectricityReturnedHigh)
-			electricityReturnedLowMetric.Set(telegram.ElectricityReturnedLow)
-			actualElectricityDeliveredMetric.Set(telegram.ActiveElectricityDraw)
-			actualElectricityRetreivedMetric.Set(telegram.ActiveElectricityReturn)
-			activeTarrifMetric.Set(float64(telegram.ActiveTariff))
-			powerFailuresLongMetric.Set(float64(telegram.PowerFailuresLong))
-			powerFailuresShortMetric.Set(float64(telegram.PowerFailuresShort))
-			gasUsageMetric.Set(telegram.GasUsage)
-
-			logrus.Debugf("%+v\n", telegram)
-
-			time.Sleep(readInterval)
 		}
 	}()
 
