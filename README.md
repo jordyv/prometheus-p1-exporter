@@ -1,32 +1,19 @@
-[![Build Status](https://travis-ci.org/jordyv/prometheus-p1-exporter.svg?branch=master)](https://travis-ci.org/jordyv/prometheus-p1-exporter)
-[![Maintainability](https://api.codeclimate.com/v1/badges/1282ac7722941cb416d9/maintainability)](https://codeclimate.com/github/jordyv/prometheus-p1-exporter/maintainability)
-[![Test Coverage](https://api.codeclimate.com/v1/badges/1282ac7722941cb416d9/test_coverage)](https://codeclimate.com/github/jordyv/prometheus-p1-exporter/test_coverage)
-
-# Prometheus P1 exporter #
+# Prometheus P1 exporter
 
 Prometheus exporter for smart meter statistics fetched with a P1 cable.
 
 
-## Installation ##
+## Installation
 
-### From source ###
+### From source
 
 With Go get:
 
 ```
-$ go get github.com/jordyv/prometheus-p1-exporter
+$ go install github.com/loafoe/prometheus-p1-exporter
 ```
 
-Make:
-
-```
-$ git clone https://github.com/jordyv/prometheus-p1-exporter.git
-$ cd prometheus-p1-exporter
-$ make
-$ sudo make install
-```
-
-## Usage ##
+## Usage
 
 ```
 Usage of ./prometheus-p1-exporter:
@@ -40,7 +27,7 @@ Usage of ./prometheus-p1-exporter:
         Verbose output logging
 ```
 
-By default the exporter will collect metrics from `/dev/ttyUSB0` every 10 seconds and export the metrics to an HTTP endpoint at `http://127.0.0.1:8888/metrics`. This endpoint can be added to your Prometheus configuration.
+By default, the exporter will collect metrics from `/dev/ttyUSB0` every 10 seconds and export the metrics to an HTTP endpoint at `http://127.0.0.1:8888/metrics`. This endpoint can be added to your Prometheus configuration.
 
 Example metrics page:
 
@@ -77,7 +64,11 @@ p1_usage_electricity_low 1179.186
 p1_usage_gas 1019.003
 ```
 
-## Development ##
+## Development
 
 Currently only the ESMR 5.0 format is supported and the parser is default configured to parse the telegram message with the keys the Sagemcom XS210 is using.
 If you have to support a different ESMR 5.0 message, feel free to create your own implementation of the TelegramFormat struct. To support a different format then ESMR 5.0 you can implement your own implementation of the TelegramReaderOptions struct.
+
+## Acknowledgement
+
+This was forked from https://github.com/jordyv/prometheus-p1-exporter
