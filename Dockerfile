@@ -1,11 +1,18 @@
-FROM golang:1.15-alpine AS builder
-WORKDIR $GOPATH/src/app/
-RUN apk add --no-cache git
-ADD . .
-RUN go get
-RUN go build -o dist/prometheus-p1-exporter main.go
+FROM golang:1.19.0 as builder
+WORKDIR /build
+COPY go.mod .
+COPY go.sum .
+RUN go mod download
 
-FROM alpine
-COPY --from=builder /go/src/app/dist/prometheus-p1-exporter /usr/local/bin/prometheus-p1-exporter
-RUN chmod +x /usr/local/bin/prometheus-p1-exporter
-ENTRYPOINT ["prometheus-p1-exporter", "-listen", "0.0.0.0:8888"]
+# Build
+COPY . .
+RUN git rev-parse --short HEAD
+RUN GIT_COMMIT=$(git rev-parse --short HEAD) && \
+    CGO_ENABLED=0 go build -o prometheus-p1-exporter -ldflags "-X main.GitCommit=${GIT_COMMIT}"
+
+FROM alpine:latest
+RUN apk update && apk add ca-certificates && rm -rf /var/cache/apk/*
+WORKDIR /app
+COPY --from=builder /build/prometheus-p1-exporter /app
+EXPOSE 8888
+CMD ["/app/prometheus-p1-exporter", "-listen", "0.0.0.0:8888"]
