@@ -21,4 +21,4 @@ install-binary:
 	@echo "Installed binary at '/usr/local/bin/${BINARY_NAME}'"
 
 test:
-	go test -cover -coverprofile=cover.out github.com/jordyv/prometheus-p1-exporter/conn github.com/jordyv/prometheus-p1-exporter/parser
+	go test -cover -coverprofile=cover.out github.com/loafoe/prometheus-p1-exporter/conn github.com/loafoe/prometheus-p1-exporter/parser
