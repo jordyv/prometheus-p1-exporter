@@ -2,12 +2,9 @@
 
 Prometheus exporter for smart meter statistics fetched with a P1 cable.
 
-
 ## Installation
 
-### From source
-
-With Go get:
+With Go install:
 
 ```shell
 go install github.com/loafoe/prometheus-p1-exporter@latest
@@ -17,17 +14,11 @@ go install github.com/loafoe/prometheus-p1-exporter@latest
 
 ```
 Usage of ./prometheus-p1-exporter:
-  -interval duration
-        Interval between metric reads (default 10s)
   -listen string
         Listen address for HTTP metrics (default "127.0.0.1:8888")
-  -mock
-        Use dummy source instead of ttyUSB0 socket
-  -verbose
-        Verbose output logging
 ```
 
-By default, the exporter will collect metrics from `/dev/ttyUSB0` every 10 seconds and export the metrics to an HTTP endpoint at `http://127.0.0.1:8888/metrics`. This endpoint can be added to your Prometheus configuration.
+The exporter will collect metrics from `/dev/ttyUSB0` every second and export the metrics to an HTTP endpoint at `http://127.0.0.1:8888/metrics`. This endpoint can be added to your Prometheus configuration.
 
 Example metrics page:
 

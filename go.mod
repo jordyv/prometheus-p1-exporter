@@ -3,7 +3,6 @@ module github.com/loafoe/prometheus-p1-exporter
 go 1.19
 
 require (
-	github.com/jacobsa/go-serial v0.0.0-20180131005756-15cf729a72d4
 	github.com/prometheus/client_golang v1.13.0
 	github.com/sirupsen/logrus v1.9.0
 	github.com/skoef/gop1 v0.0.0-20210509180626-fbf0791fea37
