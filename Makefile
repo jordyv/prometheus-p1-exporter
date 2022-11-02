@@ -7,7 +7,7 @@ build: install-deps build-binary
 install: install-binary
 
 install-deps:
-	go get
+	go mod vendor
 
 build-binary:
 	go build -o dist/${BINARY_NAME} main.go

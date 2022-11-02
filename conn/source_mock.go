@@ -36,6 +36,10 @@ var dummyTelegram = `
 
 type MockSource struct{}
 
+func NewMockSource() Source {
+	return &MockSource{}
+}
+
 type MockSourceReader struct {
 	Content string
 }
@@ -50,6 +54,6 @@ func (MockSourceReader) Close() error {
 	return nil
 }
 
-func (MockSource) ReadFromSource(telegramOptions *TelegramReaderOptions) (io.ReadWriteCloser, error) {
+func (MockSource) ReadFromSource(telegramOptions *TelegramReaderOptions) (io.ReadCloser, error) {
 	return MockSourceReader{Content: dummyTelegram}, nil
 }
