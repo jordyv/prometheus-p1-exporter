@@ -8,7 +8,11 @@ import (
 
 type SerialSource struct{}
 
-func (SerialSource) ReadFromSource(telegramOptions *TelegramReaderOptions) (io.ReadWriteCloser, error) {
+func NewSerialSource() Source {
+	return &SerialSource{}
+}
+
+func (SerialSource) ReadFromSource(telegramOptions *TelegramReaderOptions) (io.ReadCloser, error) {
 	options := serial.OpenOptions{
 		PortName:        "/dev/ttyUSB0",
 		BaudRate:        telegramOptions.BaudRate,

@@ -17,6 +17,13 @@ With Go get:
 $ go get github.com/jordyv/prometheus-p1-exporter
 ```
 
+With Go install (recommended):
+
+```
+$ go install github.com/jordyv/prometheus-p1-exporter@latest
+
+```
+
 Make:
 
 ```
@@ -30,6 +37,8 @@ $ sudo make install
 
 ```
 Usage of ./prometheus-p1-exporter:
+  -apiEndpoint string
+        Use API endpoint to read the telegram (use for HomeWizard)
   -interval duration
         Interval between metric reads (default 10s)
   -listen string

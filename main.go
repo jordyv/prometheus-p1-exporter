@@ -9,13 +9,14 @@ import (
 	"github.com/jordyv/prometheus-p1-exporter/conn"
 	"github.com/jordyv/prometheus-p1-exporter/parser"
 
-	"github.com/Sirupsen/logrus"
 	"github.com/prometheus/client_golang/prometheus"
 	"github.com/prometheus/client_golang/prometheus/promhttp"
+	"github.com/sirupsen/logrus"
 )
 
 var readInterval time.Duration
 var listenAddr string
+var apiEndpoint string
 var useMock bool
 var verbose bool
 var metricNamePrefix = "p1_"
@@ -81,14 +82,17 @@ func main() {
 	flag.StringVar(&listenAddr, "listen", "127.0.0.1:8888", "Listen address for HTTP metrics")
 	flag.DurationVar(&readInterval, "interval", 10*time.Second, "Interval between metric reads")
 	flag.BoolVar(&useMock, "mock", false, "Use dummy source instead of ttyUSB0 socket")
+	flag.StringVar(&apiEndpoint, "apiEndpoint", "", "Use API endpoint to read the telegram (use for HomeWizard)")
 	flag.BoolVar(&verbose, "verbose", false, "Verbose output logging")
 	flag.Parse()
 
 	var source conn.Source
 	if useMock {
-		source = &conn.MockSource{}
+		source = conn.NewMockSource()
+	} else if apiEndpoint != "" {
+		source = conn.NewAPISource(apiEndpoint)
 	} else {
-		source = &conn.SerialSource{}
+		source = conn.NewSerialSource()
 	}
 
 	logrus.SetFormatter(&logrus.TextFormatter{FullTimestamp: true})

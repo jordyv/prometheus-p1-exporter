@@ -15,10 +15,10 @@ type TelegramReaderOptions struct {
 }
 
 type Source interface {
-	ReadFromSource(telegramOptions *TelegramReaderOptions) (io.ReadWriteCloser, error)
+	ReadFromSource(telegramOptions *TelegramReaderOptions) (io.ReadCloser, error)
 }
 
-func convertTelegramReaderToLines(telegramOptions *TelegramReaderOptions, reader io.ReadWriteCloser) ([]string, error) {
+func convertTelegramReaderToLines(telegramOptions *TelegramReaderOptions, reader io.ReadCloser) ([]string, error) {
 	buffer := bufio.NewReader(reader)
 	telegram, err := buffer.ReadBytes('!')
 	if err != nil {
