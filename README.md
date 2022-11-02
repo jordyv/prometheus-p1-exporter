@@ -1,7 +1,3 @@
-[![Build Status](https://travis-ci.org/jordyv/prometheus-p1-exporter.svg?branch=master)](https://travis-ci.org/jordyv/prometheus-p1-exporter)
-[![Maintainability](https://api.codeclimate.com/v1/badges/1282ac7722941cb416d9/maintainability)](https://codeclimate.com/github/jordyv/prometheus-p1-exporter/maintainability)
-[![Test Coverage](https://api.codeclimate.com/v1/badges/1282ac7722941cb416d9/test_coverage)](https://codeclimate.com/github/jordyv/prometheus-p1-exporter/test_coverage)
-
 # Prometheus P1 exporter #
 
 Prometheus exporter for smart meter statistics fetched with a P1 cable.
