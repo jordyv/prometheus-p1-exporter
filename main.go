@@ -123,16 +123,30 @@ func main() {
 				continue
 			}
 			errorCount = 0
-			electricityUsageHighMetric.Set(telegram.ElectricityUsageHigh)
-			electricityUsageLowMetric.Set(telegram.ElectricityUsageLow)
-			electricityReturnedHighMetric.Set(telegram.ElectricityReturnedHigh)
-			electricityReturnedLowMetric.Set(telegram.ElectricityReturnedLow)
-			actualElectricityDeliveredMetric.Set(telegram.ActualElectricityDelivered)
-			actualElectricityRetreivedMetric.Set(telegram.ActualElectricityRetreived)
+			if telegram.ElectricityUsageHigh != nil {
+				electricityUsageHighMetric.Set(*telegram.ElectricityUsageHigh)
+			}
+			if telegram.ElectricityUsageLow != nil {
+				electricityUsageLowMetric.Set(*telegram.ElectricityUsageLow)
+			}
+			if telegram.ElectricityReturnedHigh != nil {
+				electricityReturnedHighMetric.Set(*telegram.ElectricityReturnedHigh)
+			}
+			if telegram.ElectricityReturnedLow != nil {
+				electricityReturnedLowMetric.Set(*telegram.ElectricityReturnedLow)
+			}
+			if telegram.ActualElectricityDelivered != nil {
+				actualElectricityDeliveredMetric.Set(*telegram.ActualElectricityDelivered)
+			}
+			if telegram.ActualElectricityRetreived != nil {
+				actualElectricityRetreivedMetric.Set(*telegram.ActualElectricityRetreived)
+			}
 			activeTarrifMetric.Set(float64(telegram.ActiveTariff))
 			powerFailuresLongMetric.Set(float64(telegram.PowerFailuresLong))
 			powerFailuresShortMetric.Set(float64(telegram.PowerFailuresShort))
-			gasUsageMetric.Set(telegram.GasUsage)
+			if telegram.GasUsage != nil {
+				gasUsageMetric.Set(*telegram.GasUsage)
+			}
 
 			logrus.Debugf("%+v\n", telegram)
 

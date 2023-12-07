@@ -15,22 +15,22 @@ func TestParseESMR5Format(t *testing.T) {
 	if parseErr != nil {
 		t.Fatal(parseErr)
 	}
-	if telegram.ElectricityUsageHigh != 1225.59 {
+	if *telegram.ElectricityUsageHigh != 1225.59 {
 		t.Error(telegram.ElectricityUsageHigh)
 	}
-	if telegram.ElectricityUsageLow != 1179.186 {
+	if *telegram.ElectricityUsageLow != 1179.186 {
 		t.Error(telegram.ElectricityUsageLow)
 	}
-	if telegram.ElectricityReturnedHigh != 0.0 {
+	if *telegram.ElectricityReturnedHigh != 0.0 {
 		t.Error(telegram.ElectricityReturnedHigh)
 	}
-	if telegram.ElectricityReturnedLow != 0.016 {
+	if *telegram.ElectricityReturnedLow != 0.016 {
 		t.Error(telegram.ElectricityReturnedLow)
 	}
-	if telegram.ActualElectricityRetreived != 0.0 {
+	if *telegram.ActualElectricityRetreived != 0.0 {
 		t.Error(telegram.ActualElectricityRetreived)
 	}
-	if telegram.ActualElectricityDelivered != 0.2 {
+	if *telegram.ActualElectricityDelivered != 0.2 {
 		t.Error(telegram.ActualElectricityDelivered)
 	}
 	if telegram.PowerFailuresLong != 2 {
@@ -42,7 +42,7 @@ func TestParseESMR5Format(t *testing.T) {
 	if telegram.ActiveTariff != 2 {
 		t.Error(telegram.ActiveTariff)
 	}
-	if telegram.GasUsage != 1019.003 {
+	if *telegram.GasUsage != 1019.003 {
 		t.Error(telegram.GasUsage)
 	}
 	if telegram.Timestamp != 181009214805 {
