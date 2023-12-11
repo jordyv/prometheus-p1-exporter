@@ -11,16 +11,16 @@ import (
 
 type Telegram struct {
 	Timestamp                  int64
-	ElectricityUsageLow        float64
-	ElectricityUsageHigh       float64
-	ElectricityReturnedLow     float64
-	ElectricityReturnedHigh    float64
+	ElectricityUsageLow        *float64
+	ElectricityUsageHigh       *float64
+	ElectricityReturnedLow     *float64
+	ElectricityReturnedHigh    *float64
 	ActiveTariff               int64
 	PowerFailuresShort         int64
 	PowerFailuresLong          int64
-	ActualElectricityDelivered float64
-	ActualElectricityRetreived float64
-	GasUsage                   float64
+	ActualElectricityDelivered *float64
+	ActualElectricityRetreived *float64
+	GasUsage                   *float64
 }
 
 type TelegramFormat struct {
@@ -57,21 +57,29 @@ func parseTimestampString(s string) int64 {
 	return res
 }
 
-func parseElectricityStringWithSuffix(s string, suffix string) float64 {
-	res, _ := strconv.ParseFloat(strings.Replace(parseTelegramValue(s), suffix, "", 1), 64)
-	return res
+func parseElectricityStringWithSuffix(s string, suffix string) *float64 {
+	res, err := strconv.ParseFloat(strings.Replace(parseTelegramValue(s), suffix, "", 1), 64)
+	if err != nil {
+		logrus.Debugln("Unable to convert electricity string to float", err)
+		return nil
+	}
+	return &res
 }
 
-func parseElectricityString(s string) float64 {
+func parseElectricityString(s string) *float64 {
 	// 1-0:1.8.1(001179.186*kWh)
 	// 1-0:1.8.2(001225.590*kWh)
 	return parseElectricityStringWithSuffix(s, "*kWh")
 }
 
-func parseGasString(s string) float64 {
+func parseGasString(s string) *float64 {
 	// 0-1:24.2.1(181009214500S)(01019.003*m3)
-	res, _ := strconv.ParseFloat(strings.Replace(parseTelegramValue(s), "*m3", "", 1), 64)
-	return res
+	res, err := strconv.ParseFloat(strings.Replace(parseTelegramValue(s), "*m3", "", 1), 64)
+	if err != nil {
+		logrus.Debugln("Unable to convert gas string to float", err)
+		return nil
+	}
+	return &res
 }
 
 func ParseTelegram(format *TelegramFormat, telegramLines map[string]string) (Telegram, error) {
