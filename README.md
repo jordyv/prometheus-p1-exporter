@@ -41,6 +41,8 @@ Usage of ./prometheus-p1-exporter:
         Listen address for HTTP metrics (default "127.0.0.1:8888")
   -mock
         Use dummy source instead of ttyUSB0 socket
+  -usbserial string
+    	USB serial device (default "/dev/ttyUSB0")
   -verbose
         Verbose output logging
 ```
