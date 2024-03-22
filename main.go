@@ -20,6 +20,7 @@ var apiEndpoint string
 var useMock bool
 var verbose bool
 var metricNamePrefix = "p1_"
+var usbSerial string
 
 var (
 	registry                   = prometheus.NewRegistry()
@@ -84,6 +85,7 @@ func main() {
 	flag.BoolVar(&useMock, "mock", false, "Use dummy source instead of ttyUSB0 socket")
 	flag.StringVar(&apiEndpoint, "apiEndpoint", "", "Use API endpoint to read the telegram (use for HomeWizard)")
 	flag.BoolVar(&verbose, "verbose", false, "Verbose output logging")
+	flag.StringVar(&usbSerial, "usbserial", "/dev/ttyUSB0", "USB serial device")
 	flag.Parse()
 
 	var source conn.Source
@@ -92,7 +94,7 @@ func main() {
 	} else if apiEndpoint != "" {
 		source = conn.NewAPISource(apiEndpoint)
 	} else {
-		source = conn.NewSerialSource()
+		source = conn.NewSerialSource(usbSerial)
 	}
 
 	logrus.SetFormatter(&logrus.TextFormatter{FullTimestamp: true})

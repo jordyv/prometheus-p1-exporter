@@ -6,15 +6,19 @@ import (
 	"github.com/jacobsa/go-serial/serial"
 )
 
-type SerialSource struct{}
-
-func NewSerialSource() Source {
-	return &SerialSource{}
+type SerialSource struct{
+	UsbSerial string
 }
 
-func (SerialSource) ReadFromSource(telegramOptions *TelegramReaderOptions) (io.ReadCloser, error) {
+func NewSerialSource(usbSerial string) Source {
+	return &SerialSource{
+		UsbSerial: usbSerial,
+	}
+}
+
+func (s *SerialSource) ReadFromSource(telegramOptions *TelegramReaderOptions) (io.ReadCloser, error) {
 	options := serial.OpenOptions{
-		PortName:        "/dev/ttyUSB0",
+		PortName:        s.UsbSerial,
 		BaudRate:        telegramOptions.BaudRate,
 		DataBits:        telegramOptions.DataBits,
 		StopBits:        telegramOptions.StopBits,
